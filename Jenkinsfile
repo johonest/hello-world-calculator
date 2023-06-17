@@ -38,7 +38,7 @@ pipeline{
           sleep time: 1, unit: 'MINUTES'
 
           // Mematikan aplikasi
-          sh "ssh -i /home/Documents/!Schoolz/dicoding/devops/ssh/tomcat-server-key.pem ubuntu@18.136.203.150 'rm -rf /var/lib/tomcat9/webapps/hello'"
+          sh "ssh ubuntu@18.136.203.150 'rm -rf /var/lib/tomcat9/webapps/hello'"
           echo "Aplikasi sudah dimatikan!"
         }
       }
