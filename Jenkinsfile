@@ -35,7 +35,7 @@ pipeline {
           echo "Aplikasi sudah ter-deploy! Silahkan akses di: http://18.136.203.150:8080/hello"
 
           // Menunda eksekusi selama 1 menit
-          sh 'sleep 1m' 
+          sleep time: 1, unit: 'MINUTES'
 
           //Mematikan aplikasi
           step([$class: 'DeployPublisher', containers: [tomcat9(credentialsId: 'tomcat_credential', url: 'http://18.136.203.150:8080/')], contextPath: '/hello', onFailure: false, method: 'undeploy'])
