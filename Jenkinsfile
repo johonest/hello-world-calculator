@@ -39,27 +39,9 @@ pipeline{
           sleep time: 1, unit: 'MINUTES'
 
           //Mematikan aplikasi
-          //step([$class: 'DeployPublisher', containers: [tomcat9(credentialsId: 'tomcat_credential', url: 'http://18.136.203.150:8080/')], contextPath: '/hello', onFailure: false, method: 'undeploy'])
-          //echo "Aplikasi sudah dimatikan!"
+          ssh -i /var/jenkins_home/tomcat-server-key.pem ubuntu@18.136.203.150 'rm -rf /var/lib/tomcat9/webapps/hello'
+          echo "Aplikasi sudah dimatikan!"
       }
-          //Mematikan aplikasi
-        script {
-          def deployPublisher = new hudson.plugins.deploy.DeployPublisher([
-            containers: [
-              new hudson.plugins.deploy.ContainerAdapter(
-                credentialsId: 'tomcat_credential',
-                url: 'http://18.136.203.150:8080/',
-                type: 'tomcat9'
-              )
-            ],
-          contextPath: '/hello',
-          onFailure: false,
-          redeploy: false,
-          undeploy: true
-          ])
-          deployPublisher.perform(run, workspace, launcher, listener)
-        }
-      echo "Aplikasi sudah di-undeploy!"
     }
   }
 }
