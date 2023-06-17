@@ -20,9 +20,17 @@ pipeline {
         }
       }
     }
+    stage('Manual Approval') {
+        steps {
+            script {
+                input message: 'Apakah anda mau melakukan deploy?', ok: 'Proceed', submitter: 'user1'
+            }
+        }
+    }
     stage ('Deploy') {
       steps {
         script {
+          sh 'sleep 1m' // Sleep for 1 minute (60 seconds)
           deploy adapters: [tomcat9(credentialsId: 'tomcat_credential', path: '', url: 'http://18.136.203.150:8080/')], contextPath: '/hello', onFailure: false, war: 'target/*.war' 
           echo "Aplikasi sudah ter-deploy! Silahkan akses di: http://18.136.203.150:8080/hello"
         }
