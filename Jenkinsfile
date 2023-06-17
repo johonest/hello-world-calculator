@@ -30,10 +30,16 @@ pipeline {
     stage ('Deploy') {
       steps {
         script {
-          sh 'sleep 1m' // Sleep for 1 minute (60 seconds)
+          // Deploy aplikasi
           deploy adapters: [tomcat9(credentialsId: 'tomcat_credential', path: '', url: 'http://18.136.203.150:8080/')], contextPath: '/hello', onFailure: false, war: 'target/*.war' 
           echo "Aplikasi sudah ter-deploy! Silahkan akses di: http://18.136.203.150:8080/hello"
-        }
+
+          // Menunda eksekusi selama 1 menit
+          sh 'sleep 1m' 
+
+          //Mematikan aplikasi
+          step([$class: 'DeployPublisher', containers: [tomcat9(credentialsId: 'tomcat_credential', url: 'http://18.136.203.150:8080/')], contextPath: '/hello', onFailure: false, method: 'undeploy'])
+          echo "Aplikasi sudah dimatikan!"
       }
     }
   }
