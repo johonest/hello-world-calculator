@@ -36,9 +36,10 @@ pipeline{
 
           // Menunda eksekusi selama 1 menit
           sleep time: 1, unit: 'MINUTES'
+          echo "Aplikasi berjalan selama 1 minutes"
 
           // Mematikan aplikasi
-          sh "ssh ubuntu@18.136.203.150 'rm -rf /var/lib/tomcat9/webapps/hello'"
+          sh "ssh ubuntu@18.136.203.150 'sudo rm -r /var/lib/tomcat9/webapps/hello && sudo rm /var/lib/tomcat9/webapps/hello.*'"
           echo "Aplikasi sudah dimatikan!"
         }
       }
