@@ -1,5 +1,4 @@
-pipeline{ 
-
+pipeline{
   agent any
   tools {
     maven 'maven-3.6.3' 
@@ -22,11 +21,11 @@ pipeline{
       }
     }
     stage('Manual Approval') {
-        steps {
-            script {
-                input message: 'Apakah anda mau melakukan deploy?', ok: 'Proceed', submitter: 'user1'
-            }
+      steps {
+        script {
+          input message: 'Apakah Anda mau melakukan deploy?', ok: 'Proceed', submitter: 'user1'
         }
+      }
     }
     stage ('Deploy') {
       steps {
@@ -38,12 +37,11 @@ pipeline{
           // Menunda eksekusi selama 1 menit
           sleep time: 1, unit: 'MINUTES'
 
-          //Mematikan aplikasi
-          ssh -i /var/jenkins_home/tomcat-server-key.pem ubuntu@18.136.203.150 'rm -rf /var/lib/tomcat9/webapps/hello'
+          // Mematikan aplikasi
+          sh "ssh -i /var/jenkins_home/tomcat-server-key.pem ubuntu@18.136.203.150 'rm -rf /var/lib/tomcat9/webapps/hello'"
           echo "Aplikasi sudah dimatikan!"
+        }
       }
     }
   }
-}
-
 }
