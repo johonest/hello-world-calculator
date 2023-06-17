@@ -35,11 +35,11 @@ pipeline{
           echo "Aplikasi sudah ter-deploy! Silahkan akses di: http://18.136.203.150:8080/hello"
 
           // Menunda eksekusi selama 1 menit
-          echo "Aplikasi akan berjalan selama 1 minutes.."
+          echo "Aplikasi akan berjalan selama 1 minutes..."
           sleep time: 1, unit: 'MINUTES'
 
           // Mematikan aplikasi
-          echo "Mematikan aplikasi.."
+          echo "Mematikan aplikasi..."
           sh "ssh ubuntu@18.136.203.150 'sudo rm -r /var/lib/tomcat9/webapps/hello && sudo rm /var/lib/tomcat9/webapps/hello.*'"
           echo "Aplikasi sudah dimatikan. Pipeline sukses!"
         }
